@@ -1,0 +1,51 @@
+{
+  "name": "node-chat-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "xo": "^0.18.0"
+  },
+  "xo": {
+    "envs": [
+      "node",
+      "mocha",
+      "browser"
+    ],
+    "esnext": "true",
+    "globals": [
+      "expect",
+      "Modernizr",
+      "BUILD_MODE"
+    ],
+    "space": "true",
+    "rules": {
+      "import/no-unresolved": [
+        "error",
+        {
+          "ignore": [
+            "test/"
+          ]
+        }
+      ],
+      "comma-dangle": [
+        2,
+        "always-multiline"
+      ],
+      "camelcase": 0,
+      "no-unused-vars": 0,
+      "no-unused-expressions": 0,
+      "babel/new-cap": "off",
+      "import/no-extraneous-dependencies": 0
+    }
+  }
+}
