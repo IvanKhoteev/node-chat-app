@@ -16,10 +16,16 @@ app.use(express.static(publicPath));
 
 io.on('connection', socket => {
   console.log('New user connected');
+  const id = Object.keys(io.sockets.sockets)[0];
 
   io.emit('newMessage', {
     from: 'Admin',
     text: 'Welcome all',
+  });
+
+  io.sockets.sockets[id].emit('newMessage', {
+    from: '123',
+    text: 'ss text',
   });
 
   socket.broadcast.emit('newMessage', {
