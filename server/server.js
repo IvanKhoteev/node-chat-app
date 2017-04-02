@@ -5,6 +5,8 @@ const http = require('http');
 const express = require('express');
 const socketIO = require('socket.io');
 
+const {generateMessage} = require('./utils/message');
+
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
@@ -16,31 +18,23 @@ app.use(express.static(publicPath));
 
 io.on('connection', socket => {
   console.log('New user connected');
-  const id = Object.keys(io.sockets.sockets)[0];
+  const id = Object.keys(io.sockets.sockets).slice(-1)[0];
 
-  io.emit('newMessage', {
-    from: 'Admin',
-    text: 'Welcome all',
-  });
+  // io.emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
 
-  io.sockets.sockets[id].emit('newMessage', {
-    from: '123',
-    text: 'ss text',
-  });
+  io.sockets.sockets[id].emit('newMessage', generateMessage('Admin', 'Welcome to the chat app'));
 
-  socket.broadcast.emit('newMessage', {
-    from: 'Admin',
-    text: 'For all except admin',
-  });
+  socket.broadcast.emit('newMessage', generateMessage('Admin', 'New user join chat'));
 
   socket.on('disconnect', () => {
     console.log('User was disconnected');
   });
 
-  socket.on('createMessage', data => {
+  socket.on('createMessage', (data, callback) => {
     console.log('create a new message and seed them');
     console.log(JSON.stringify(data, undefined, 2));
-    // io.emit('newMessage', data);
+    io.emit('newMessage', data);
+    callback('This is from the server');
     // socket.broadcast.emit('newMessage', data);
   });
 });

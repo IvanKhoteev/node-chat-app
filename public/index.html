@@ -6,7 +6,16 @@
   </head>
   <body>
     <p>Some text</p>
+
+    <ol id="message-list"></ol>
+
+    <form id="message-form">
+      <input type="text" name="message" placeholder="Message"/>
+      <button>Send</button>
+    </form>
+
     <script src="/socket.io/socket.io.js" charset="utf-8"></script>
+    <script src="/javascript/libs/jquery-3.2.0.min.js" charset="utf-8"></script>
     <script src="/javascript/index.js" charset="utf-8"></script>
   </body>
 </html>
