@@ -34,7 +34,7 @@ io.on('connection', socket => {
     console.log('create a new message and seed them');
     console.log(JSON.stringify(data, undefined, 2));
     io.emit('newMessage', data);
-    callback('This is from the server');
+    callback();
     // socket.broadcast.emit('newMessage', data);
   });
 
