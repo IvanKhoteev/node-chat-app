@@ -17,10 +17,10 @@ describe('Location message test', () => {
     const from = 'Ivan';
     const latitude = 123;
     const longitude = 456;
+    const url = `https://www.google.com/maps?q=${latitude},${longitude}`;
     const message = generateLocationMessage(from, latitude, longitude);
 
-    expect(message).toInclude({from, url: `https://www.google.com/maps?q=${latitude},${longitude}`});
-    expect(message.url).toInclude(`${latitude},${longitude}`);
+    expect(message).toInclude({from, url});
     expect(message.createdAt).toBeA('number');
   });
 });
