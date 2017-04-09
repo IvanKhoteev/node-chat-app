@@ -16,7 +16,23 @@ function scrollToBottom() {
 };
 
 socket.on('connect', () => {
-  console.log('Successfully connected to the server');
+  const params = $.deparam(window.location.search);
+  socket.emit('join', params, function (err) {
+    if (err) {
+      alert(err);
+      window.location.href = '/';
+    } else {
+      console.log('No error');
+    }
+  });
+});
+
+socket.on('updateUserList', users => {
+  const ol = $('<ol></ol>');
+  users.forEach(function (user) {
+    ol.append($('<li></li>').text(user));
+  });
+  $('#users').html(ol);
 });
 
 socket.on('disconnect', () => {
@@ -51,7 +67,6 @@ $('#message-form').on('submit', function (e) {
   e.preventDefault();
   const messageTextbox = $('input[name=message]');
   socket.emit('createMessage', {
-    from: 'Frank',
     text: messageTextbox.val(),
   }, () => {
     messageTextbox.val('');
